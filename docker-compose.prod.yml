@@ -1,0 +1,61 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:10
+    volumes:
+      - /home/eps_running/data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: always
+    networks:
+      - reverseproxy-nw
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ATN_PROD: 'True'
+        ATN_DB_ENGINE: 'django.db.backends.postgresql_psycopg2'
+        ATN_DB: 'postgres'
+        ATN_DB_USER: 'postgres'
+        ATN_DB_PASSWD: 'postgres'
+        ATN_DB_HOST: 'db'
+        ATN_DB_PORT: '5432'
+    volumes:
+      - static:/code/static
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - reverseproxy-nw
+    links:
+      - db:db
+
+  nginx:
+    image: nginx:1.13
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static:/code/static
+    depends_on:
+      - backend
+    restart: always
+    networks:
+      - reverseproxy-nw
+
+networks:
+  reverseproxy-nw:
+    external: true
+
+volumes:
+  .:
+  static:

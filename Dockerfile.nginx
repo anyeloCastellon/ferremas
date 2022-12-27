@@ -1,0 +1,5 @@
+FROM nginx:1.13
+RUN apt-get update -qq && apt-get -y install apache2-utils
+# RUN mkdir /etc/nginx
+# RUN mkdir /etc/nginx/cert
+
