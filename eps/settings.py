@@ -170,5 +170,5 @@ REST_FRAMEWORK = {
 CRONTAB_COMMAND_SUFFIX = '2>&1'
 
 CRONJOBS = [
-    ('*/1 * * * *', 'eps_management.cronjobs.import_new_eps', '>> /home/logs/logs_eps.log'),
+    ('*/3 * * * *', 'eps_management.cronjobs.import_new_eps', '>> /home/logs/logs_eps.log'),
 ]

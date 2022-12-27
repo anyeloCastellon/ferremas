@@ -29,7 +29,7 @@ def import_new_eps():
         print()
 
         print('llega')
-        query_bice = 'SELECT LOGSOURCENAME(logsourceid) AS "Log Source", SUM(eventcount) AS "Number of Events in Interval", SUM(eventcount) / 60 AS "EPS in Interval" FROM events where domainid=' + str(company.domain_id_qradar) + ' GROUP BY "Log Source" ORDER BY "EPS in Interval" DESC LAST 1 MINUTES'
+        query_bice = 'SELECT LOGSOURCENAME(logsourceid) AS "Log Source", SUM(eventcount) AS "Number of Events in Interval", SUM(eventcount) / 180 AS "EPS in Interval" FROM events where domainid=' + str(company.domain_id_qradar) + ' GROUP BY "Log Source" ORDER BY "EPS in Interval" DESC LAST 3 MINUTES'
 
 
         headers = {

@@ -40,9 +40,8 @@ services:
 
   nginx:
     image: nginx:1.13
-    build:
-      context: .
-      dockerfile: Dockerfile.nginx
+    ports:
+      - 8000:8000
     volumes:
       - ./config/nginx/conf.d:/etc/nginx/conf.d
       - static:/code/static
