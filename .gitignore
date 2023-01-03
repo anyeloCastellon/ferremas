@@ -19,7 +19,6 @@ media
 db.tar
 staticfiles
 login_logs.txt
-log*
 logs*
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
