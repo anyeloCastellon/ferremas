@@ -5,13 +5,13 @@ from rest_framework import serializers
 class CompanyHyperlinkedModelSerializerMinumus(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Company
-        fields = ['id', 'name', 'enabled']
+        fields = ['id_company', 'name', 'enabled']
 
 
 class CompanyModelSerializerMinumus(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = ['id', 'name', 'enabled']
+        fields = ['id_company', 'name', 'enabled']
 
 
 class UserModelSerializer(serializers.ModelSerializer):
