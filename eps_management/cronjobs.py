@@ -63,7 +63,7 @@ def import_new_eps():
             time.sleep(2)
             response_url_search = requests.get(url_search, verify=False, headers=headers)
         except Exception as e:
-            response_url_search = requests.get(url_search, verify=False, headers=headers)
+            response_url_search = requests.delete(url_delete, verify=False, headers=headers)
 
         pprint.pprint(response_url_search)
 
