@@ -20,15 +20,10 @@ table_hexadecimal = [
 
 
 def import_new_eps():
-    print('llega')
     password = settings.API_GET_PASSWORD
-    print('llega')
-
 
     for company in Company.objects.all():
-        print()
 
-        print('llega')
         query_bice = 'SELECT LOGSOURCENAME(logsourceid) AS "Log Source", SUM(eventcount) AS "Number of Events in Interval", SUM(eventcount) / 180 AS "EPS in Interval" FROM events where domainid=' + str(company.domain_id_qradar) + ' GROUP BY "Log Source" ORDER BY "EPS in Interval" DESC LAST 3 MINUTES'
 
 
@@ -44,14 +39,6 @@ def import_new_eps():
         response_url_query_expression = requests.post(url_query_expression, verify=False, headers=headers)
         
         print('Create Search')
-        pprint.pprint(response_url_query_expression.json())
-        print()
-        print()
-        print()
-        print(str(response_url_query_expression.json()['search_id']))
-        print()
-        print()
-        print()
 
         url_search = str(settings.API_URL_BASIC) + 'ariel/searches/' + str(response_url_query_expression.json()['search_id']) + '/results'
 
@@ -120,7 +107,6 @@ def import_new_eps():
 
         print('Delete Search')
         response_url_delete = requests.delete(url_delete, verify=False, headers=headers)
-        pprint.pprint(response_url_delete.json())
 
 
 
