@@ -2,9 +2,9 @@
 from rest_framework import serializers
 from datetime import datetime, date, timedelta
 from django.utils import timezone
-from .models import EpsTotal
+from .models import EpsTotal, EpsLogSource
 from user_management.serializers import CompanyModelSerializerMinumus
-
+from log_source.serializers import LogSourcePowerBySerializer
 
 class EPSQRadarSerializer(serializers.Serializer):
     eps_serializer = serializers.SerializerMethodField('get_count_desface')
@@ -49,3 +49,17 @@ class EPSQRadarPowerBySerializer(serializers.ModelSerializer):
     class Meta:
         model = EpsTotal
         fields = ['id_epstotal','company', 'count_range', 'count_intervale', 'created_date']
+
+
+
+
+
+
+
+class EpsLogSourceQRadarPowerBySerializer(serializers.ModelSerializer):
+    company = CompanyModelSerializerMinumus()
+    name_log_source = LogSourcePowerBySerializer()
+    
+    class Meta:
+        model = EpsLogSource
+        fields = ['id_epslogsource','name_log_source', 'company', 'count_range', 'count_intervale', 'created_date']

@@ -6,8 +6,8 @@ from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
-from .models import EpsTotal
-from .serializers import EPSQRadarSerializer, EPSQRadarPowerBySerializer
+from .models import EpsTotal, EpsLogSource
+from .serializers import EPSQRadarSerializer, EPSQRadarPowerBySerializer, EpsLogSourceQRadarPowerBySerializer
 from django.utils import timezone
 from datetime import datetime, date, timedelta
 from user_management.models import Company
@@ -49,3 +49,9 @@ class EPSViewSet(viewsets.ModelViewSet):
 class EPSPowerByViewSet(viewsets.ModelViewSet):
     queryset = EpsTotal.objects.all()
     serializer_class = EPSQRadarPowerBySerializer
+
+
+
+class EpsLogSourcePowerByViewSet(viewsets.ModelViewSet):
+    queryset = EpsLogSource.objects.all()
+    serializer_class = EpsLogSourceQRadarPowerBySerializer
