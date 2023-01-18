@@ -13,6 +13,11 @@ class CompanyModelSerializerMinumus(serializers.ModelSerializer):
         model = Company
         fields = ['id_company', 'name', 'enabled']
 
+class CompanyModelSerializerMaxMinumus(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ['name',]
+
 
 class UserModelSerializer(serializers.ModelSerializer):
     class Meta:

@@ -30,6 +30,8 @@ class LogSource(BaseModel):
 
     name_log_source = models.CharField(max_length=256, blank=False, null=False)
 
+    number_log_source = models.BigIntegerField(blank=True, null=True)
+
 
     company = models.ForeignKey(
         "user_management.Company",

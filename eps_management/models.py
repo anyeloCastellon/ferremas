@@ -118,3 +118,99 @@ class Notification(BaseModel):
         verbose_name = 'Notification'
         verbose_name_plural = 'Notification'
 
+
+
+
+
+
+class EpsERCAllMcafee(BaseModel):
+    id_epsercallmcafee = models.AutoField(primary_key = True)
+
+
+    company = models.ForeignKey(
+        "user_management.Company",
+        on_delete=models.CASCADE
+        )
+
+    erc_collection_rate = models.PositiveIntegerField(default=0)
+    erc_parsing_rate = models.PositiveIntegerField(default=0)
+
+    created_date = models.DateTimeField('Fecha de Creación')
+
+    def __str__(self):
+        return f'{self.company} {self.erc_collection_rate} {self.erc_parsing_rate}'
+
+
+    class Meta:
+        ordering = ('-created_date',)
+        verbose_name = 'EpsERCAllMcafee'
+        verbose_name_plural = 'EpsERCAllMcafee'
+
+
+
+
+
+class EPS_DS_Collection_Rate(BaseModel):
+    id_epsdscollectionrate = models.AutoField(primary_key = True)
+
+    company = models.ForeignKey(
+        "user_management.Company",
+        on_delete=models.CASCADE
+        )
+
+    ds_collection_rate = models.PositiveIntegerField(default=0)
+    created_date = models.DateTimeField('Fecha de Creación')
+
+    epsercallmcafee = models.ForeignKey(
+        "eps_management.EpsERCAllMcafee",
+        on_delete=models.CASCADE,
+        related_name='eps_ds_collection_rate_epsercallmcafee'
+        )
+
+    log_source = models.ForeignKey(
+        "log_source.LogSource",
+        on_delete=models.CASCADE
+        )
+
+    def __str__(self):
+        return f'{self.company} {self.ds_collection_rate} {self.log_source}'
+
+
+    class Meta:
+        ordering = ('-created_date',)
+        verbose_name = 'EPS_DS_Collection_Rate'
+        verbose_name_plural = 'EPS_DS_Collection_Rate'
+
+
+
+class EPS_DS_Parsing_Rate(BaseModel):
+    id_epsdsparsingrate = models.AutoField(primary_key = True)
+
+    company = models.ForeignKey(
+        "user_management.Company",
+        on_delete=models.CASCADE
+        )
+
+    ds_parsing_rate = models.PositiveIntegerField(default=0)
+
+    created_date = models.DateTimeField('Fecha de Creación')
+
+    epsercallmcafee = models.ForeignKey(
+        "eps_management.EpsERCAllMcafee",
+        on_delete=models.CASCADE,
+        related_name='eps_ds_parsing_rate_epsercallmcafee'
+        )
+
+    log_source = models.ForeignKey(
+        "log_source.LogSource",
+        on_delete=models.CASCADE
+        )
+
+    def __str__(self):
+        return f'{self.company} {self.ds_parsing_rate} {self.log_source}'
+
+
+    class Meta:
+        ordering = ('-created_date',)
+        verbose_name = 'EPS_DS_Parsing_Rate'
+        verbose_name_plural = 'EPS_DS_Parsing_Rate'

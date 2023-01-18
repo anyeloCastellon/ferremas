@@ -14,3 +14,10 @@ class LogSourcePowerBySerializer(serializers.ModelSerializer):
     class Meta:
         model = LogSource
         fields = ['id_datasource','name_log_source', 'company']
+
+
+
+class LogSourceMinimusPowerBySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LogSource
+        fields = ['name_log_source']

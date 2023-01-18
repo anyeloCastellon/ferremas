@@ -6,8 +6,8 @@ from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
-from .models import EpsTotal, EpsLogSource
-from .serializers import EPSQRadarSerializer, EPSQRadarPowerBySerializer, EpsLogSourceQRadarPowerBySerializer
+from .models import *
+from .serializers import *
 from django.utils import timezone
 from datetime import datetime, date, timedelta
 from user_management.models import Company
@@ -29,20 +29,18 @@ class EPSViewSet(viewsets.ModelViewSet):
     @action(methods=['get'], detail=False)
     def get_dashboard_initial(self, request, format=None):
 
-        set_list = list()
+        companies = Company.objects.all()
 
-        this_hour = timezone.now()
-        one_hour_later = this_hour - timedelta(hours=4)
+        sera = EPSQRadarSerializer(companies, many=True)
+        return Response(sera.data)
+
+
+    @action(methods=['get'], detail=False)
+    def get_dashboard_eps_all(self, request, format=None):
 
         companies = Company.objects.all()
 
-        initial_date = EpsTotal.objects.filter(
-            created_date__gte=one_hour_later,
-            created_date__lte=this_hour
-            )
-
         sera = EPSQRadarSerializer(companies, many=True)
-
         return Response(sera.data)
 
 
@@ -55,3 +53,14 @@ class EPSPowerByViewSet(viewsets.ModelViewSet):
 class EpsLogSourcePowerByViewSet(viewsets.ModelViewSet):
     queryset = EpsLogSource.objects.all()
     serializer_class = EpsLogSourceQRadarPowerBySerializer
+
+
+
+class EpsERCAllMcafeePowerByViewSet(viewsets.ModelViewSet):
+    queryset = EpsERCAllMcafee.objects.all()
+    serializer_class = EpsERCAllMcafeePowerBySerializer
+
+
+class EpsERCMinimusMcafeePowerByViewSet(viewsets.ModelViewSet):
+    queryset = EpsERCAllMcafee.objects.all()
+    serializer_class = EpsERCMinumisMcafeePowerBySerializer
