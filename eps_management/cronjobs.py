@@ -24,7 +24,7 @@ table_hexadecimal = [
 def import_new_eps():
     password = settings.API_GET_PASSWORD
 
-    for company in Company.objects.filter(is_search = True):
+    for company in Company.objects.filter(is_search = True, siem__name = 'QRadar'):
 
         query_bice = 'SELECT LOGSOURCENAME(logsourceid) AS "Log Source", SUM(eventcount) AS "Number of Events in Interval", SUM(eventcount) / 180 AS "EPS in Interval" FROM events where domainid=' + str(company.domain_id_qradar) + ' GROUP BY "Log Source" ORDER BY "EPS in Interval" DESC LAST 3 MINUTES'
 
@@ -167,14 +167,14 @@ def import_new_eps_mcafee():
 
         for k in dic_end['ds_parsing_rate'].keys():
             log_source = LogSource.objects.get(
-                number_log_source   = j,
+                number_log_source   = k,
                 company             = company
             )
 
 
             eps_ds_parsing_rate = EPS_DS_Parsing_Rate.objects.get_or_create(
                 company                 =   company,
-                ds_parsing_rate      =   dic_end['ds_collection_rate'][k],
+                ds_parsing_rate         =   dic_end['ds_parsing_rate'][k],
                 created_date            =   dic_end['time'],
                 epsercallmcafee         =   epsERCAllMcafee,
                 log_source              =   log_source,

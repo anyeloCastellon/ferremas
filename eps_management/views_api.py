@@ -61,6 +61,20 @@ class EpsERCAllMcafeePowerByViewSet(viewsets.ModelViewSet):
     serializer_class = EpsERCAllMcafeePowerBySerializer
 
 
+
+    @action(methods=['get'], detail=False)
+    def get_data_eps_all(self, request, format=None):
+
+        companies = Company.objects.filter(siem__name = 'Mcafee')
+
+        for compamy in companies:
+            epsercallmcafee = EpsERCAllMcafee.objects.filter(company__name = compamy.name)
+            sera = EpsERCAllWithFormatMcafeePowerBySerializer(epsercallmcafee, many=True)
+            
+        return Response(sera.data)
+
+
+
 class EpsERCMinimusMcafeePowerByViewSet(viewsets.ModelViewSet):
     queryset = EpsERCAllMcafee.objects.all()
     serializer_class = EpsERCMinumisMcafeePowerBySerializer

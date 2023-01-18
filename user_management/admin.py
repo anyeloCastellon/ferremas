@@ -2,7 +2,7 @@ from django.apps import apps
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import UserCreationForm, UserChangeForm
-from .models import User, Company, TypeCompany
+from .models import User, Company, TypeCompany, SIEM
 
 
 class UserAdmin(UserAdmin):
@@ -20,11 +20,15 @@ class UserAdminServer(admin.ModelAdmin):
 
 
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ['id_company', 'name', 'type_company', 'enabled', 'domain_id_qradar']
+    list_display = ['id_company', 'name', 'type_company', 'enabled', 'domain_id_qradar', 'siem', 'is_search']
+    list_filter = ['siem', 'enabled', 'is_search']
 
 class TypeCompanyAdmin(admin.ModelAdmin):
     list_display = ['id_typecompany', 'name', 'enabled',]
 
+
+class SIEMAdmin(admin.ModelAdmin):
+    list_display = ['id_siem', 'name', 'enabled',]
 
 
 class GeolocationAdmin(admin.ModelAdmin):
@@ -38,3 +42,4 @@ class PathURLAdmin(admin.ModelAdmin):
 admin.site.register(User, UserAdmin)
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(TypeCompany, TypeCompanyAdmin)
+admin.site.register(SIEM, SIEMAdmin)

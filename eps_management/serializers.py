@@ -141,6 +141,41 @@ class EPSQRadarPowerBySerializer(serializers.ModelSerializer):
 
 
 
+class EpsERCAllWithFormatMcafeePowerBySerializer(serializers.Serializer):
+    eps_serializer = serializers.SerializerMethodField('get_rate_count')
+
+    def get_rate_count(self, obj):
+
+        eps_ds_collection_rate = EPS_DS_Collection_Rate.objects.filter(epsercallmcafee = obj)
+        eps_ds_parsing_rate = EPS_DS_Parsing_Rate.objects.filter(epsercallmcafee = obj)
+
+        print(eps_ds_parsing_rate)
+
+        dict_eps_ds_collection_rate = {}
+        dict_eps_ds_parsing_rate = {}
+
+        for i in eps_ds_collection_rate:
+            dict_eps_ds_collection_rate[i.log_source.name_log_source] = i.ds_collection_rate
+
+        
+        for j in eps_ds_parsing_rate:
+            print(j)
+            dict_eps_ds_parsing_rate[j.log_source.name_log_source] = j.ds_parsing_rate
+
+        print()
+        print()
+        print()
+
+        return {
+            "company":                  obj.company.name,
+            'erc_collection_rate':      obj.erc_collection_rate,
+            'erc_parsing_rate':         obj.erc_parsing_rate,
+            'created_date':             obj.created_date,
+            'name_file':                obj.name_file,
+            'eps_ds_collection_rate':   dict_eps_ds_collection_rate,
+            'eps_ds_parsing_rate':      dict_eps_ds_parsing_rate
+        }
+
 
 
 

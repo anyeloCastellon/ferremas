@@ -46,6 +46,20 @@ class TypeCompany(BaseModel):
         return self.name
 
 
+
+class SIEM(BaseModel):
+    id_siem = models.AutoField(primary_key = True)
+    name = models.CharField(max_length=50, null=False)
+
+    class Meta:
+        ordering = ['pk']
+        verbose_name_plural = "SIEM"
+
+    def __str__(self):
+        return self.name
+
+
+
 class Company(BaseModel):
     id_company= models.AutoField(primary_key = True)
 
@@ -59,6 +73,13 @@ class Company(BaseModel):
     type_company = models.ForeignKey(
         "user_management.TypeCompany",
         on_delete=models.CASCADE
+        )
+
+    siem = models.ForeignKey(
+        "user_management.SIEM",
+        on_delete=models.CASCADE,
+        null=True, 
+        blank=True
         )
 
     class Meta:
