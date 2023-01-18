@@ -137,6 +137,8 @@ class EpsERCAllMcafee(BaseModel):
 
     created_date = models.DateTimeField('Fecha de Creación')
 
+    name_file = models.CharField(null=True, blank=True, max_length=2000)
+
     def __str__(self):
         return f'{self.company} {self.erc_collection_rate} {self.erc_parsing_rate}'
 
@@ -166,6 +168,7 @@ class EPS_DS_Collection_Rate(BaseModel):
         on_delete=models.CASCADE,
         related_name='eps_ds_collection_rate_epsercallmcafee'
         )
+    name_file = models.CharField(null=True, blank=True, max_length=2000)
 
     log_source = models.ForeignKey(
         "log_source.LogSource",
@@ -194,6 +197,7 @@ class EPS_DS_Parsing_Rate(BaseModel):
     ds_parsing_rate = models.PositiveIntegerField(default=0)
 
     created_date = models.DateTimeField('Fecha de Creación')
+    name_file = models.CharField(null=True, blank=True, max_length=2000)
 
     epsercallmcafee = models.ForeignKey(
         "eps_management.EpsERCAllMcafee",

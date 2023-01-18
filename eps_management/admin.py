@@ -40,7 +40,7 @@ admin.site.register(Notification, NotificationAdmin)
 
 
 class EpsERCAllMcafeeAdmin(admin.ModelAdmin):
-    list_display = ['id_epsercallmcafee', 'company', 'erc_collection_rate', 'erc_parsing_rate']
+    list_display = ['id_epsercallmcafee', 'company', 'erc_collection_rate', 'erc_parsing_rate', 'name_file']
     list_filter = ['company']
     list_max_show_all = 1000
     list_per_page = 1000
@@ -53,18 +53,20 @@ admin.site.register(EpsERCAllMcafee, EpsERCAllMcafeeAdmin)
 
 
 class EPS_DS_Collection_RateAdmin(admin.ModelAdmin):
-    list_display = ['id_epsdscollectionrate', 'company', 'ds_collection_rate', 'epsercallmcafee', "log_source"]
+    list_display = ['id_epsdscollectionrate', 'company', 'ds_collection_rate', 'epsercallmcafee', "log_source", 'name_file']
     list_filter = ['company']
-
+    list_max_show_all = 1000
+    list_per_page = 1000
 
 admin.site.register(EPS_DS_Collection_Rate, EPS_DS_Collection_RateAdmin)
 
 
 
 class EPS_DS_Parsing_RateAdmin(admin.ModelAdmin):
-    list_display = ['id_epsdsparsingrate', 'company', 'ds_parsing_rate', 'epsercallmcafee', "log_source"]
+    list_display = ['id_epsdsparsingrate', 'company', 'ds_parsing_rate', 'epsercallmcafee', "log_source", 'name_file']
     list_filter = ['company']
-
+    list_max_show_all = 1000
+    list_per_page = 1000
 
 admin.site.register(EPS_DS_Parsing_Rate, EPS_DS_Parsing_RateAdmin)
 

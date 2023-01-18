@@ -136,7 +136,8 @@ def import_new_eps_mcafee():
             company                   =   company,
             erc_collection_rate       =   dic_end['erc_collection_rate'],
             erc_parsing_rate          =   dic_end['erc_parsing_rate'],
-            created_date              =   dic_end['time']
+            created_date              =   dic_end['time'],
+            name_file                 =   str(i.text)
         )[0]
 
         epsERCAllMcafee.save()
@@ -155,7 +156,9 @@ def import_new_eps_mcafee():
                 ds_collection_rate      =   dic_end['ds_collection_rate'][j],
                 created_date            =   dic_end['time'],
                 epsercallmcafee         =   epsERCAllMcafee,
-                log_source              = log_source
+                log_source              =   log_source,
+                name_file               =   str(i.text)
+
             )[0]
 
             eps_ds_collection_rate.save()
@@ -174,7 +177,8 @@ def import_new_eps_mcafee():
                 ds_parsing_rate      =   dic_end['ds_collection_rate'][k],
                 created_date            =   dic_end['time'],
                 epsercallmcafee         =   epsERCAllMcafee,
-                log_source              =   log_source
+                log_source              =   log_source,
+                name_file               =   str(i.text)
             )[0]
 
             eps_ds_parsing_rate.save()
