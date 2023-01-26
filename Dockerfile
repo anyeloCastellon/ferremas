@@ -24,7 +24,7 @@ ARG ATN_DB_PASSWD
 ENV ATN_DB_PASSWD=$ATN_DB_PASSWD
 
 RUN apt-get update && apt install -y libpq-dev python3-dev gcc g++  && apt-get -y install cron  && touch /var/log/cron.log
-RUN mkdir /home/logs && touch /home/logs/logs.log && touch /home/logs/logs.criticidad.log && touch /home/logs/logs_eps.log
+RUN mkdir /home/logs && touch /home/logs/logs.log && touch /home/logs/logs.criticidad.log && touch /home/logs/logs_eps_qradar.log && touch /home/logs/logs_eps_mcafee.log
 RUN printenv | grep -v "no_proxy" >> /etc/environment
 
 RUN mkdir /etc/nginx

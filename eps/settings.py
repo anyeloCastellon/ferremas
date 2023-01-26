@@ -168,6 +168,6 @@ REST_FRAMEWORK = {
 CRONTAB_COMMAND_SUFFIX = '2>&1'
 
 CRONJOBS = [
-    # ('*/3 * * * *', 'eps_management.cronjobs.import_new_eps', '>> /home/logs/logs_eps.log'),
-    ('*/10 * * * *', 'eps_management.cronjobs.import_new_eps_mcafee', '>> /home/logs/logs_eps.log'),
+    ('*/3 * * * *', 'eps_management.cronjobs.import_new_eps', '>> /home/logs/logs_eps_qradar.log'),
+    ('*/10 * * * *', 'eps_management.cronjobs.import_new_eps_mcafee', '>> /home/logs/logs_eps_mcafee.log'),
 ]
