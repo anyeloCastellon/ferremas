@@ -130,7 +130,7 @@ def import_new_eps_mcafee():
 
         cliente = str(i.text).split("_")[0]
 
-        if(len((Company.objects.get(filter = cliente))) == 0):
+        if(len((Company.objects.filter(name = cliente))) == 0):
             continue
 
         company = Company.objects.get(name = cliente)
