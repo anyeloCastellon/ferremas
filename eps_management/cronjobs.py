@@ -126,7 +126,11 @@ def import_new_eps_mcafee():
         
         url_endpoint = url_base + str(i.text)
         data_enpoint = requests.get(url_endpoint).text
-        dic_end = json.loads(data_enpoint)
+        try:
+            data_enpoint = data_enpoint.replace('\n', '')
+            dic_end = json.loads(data_enpoint)
+        except Exception as e:
+            print(url_endpoint)
 
         cliente = str(i.text).split("_")[0]
 
