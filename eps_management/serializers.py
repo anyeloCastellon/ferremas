@@ -19,7 +19,7 @@ class EPSQRadarSerializer(serializers.Serializer):
             company__name=obj.name,
             created_date__gte=one_hour_later,
             created_date__lte=this_hour,
-        ).order_by('-created_date')[:30]
+        ).order_by('-created_date')[:20]
 
         eps = reversed(eps)
 
