@@ -13,7 +13,7 @@ class EPSQRadarSerializer(serializers.Serializer):
         count = 0
         hora = ""
         this_hour = timezone.now()
-        one_hour_later = this_hour - timedelta(hours=4)
+        one_hour_later = this_hour - timedelta(hours=8)
 
         eps = EpsTotal.objects.filter(
             company__name=obj.name,
