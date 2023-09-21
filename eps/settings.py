@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'eps_management',
     'log_source',
     'query_management',
+    'sanitycheckmcafee',
 
     # 3rd party apps
     'rest_framework',
@@ -140,9 +141,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-es'
 
-TIME_ZONE = 'America/Santiago'
+TIME_ZONE = 'Chile/Continental'
 
-TIME_ZONE = 'UTC'
+USE_TZ = True
 
 USE_I18N = True
 
@@ -170,4 +171,5 @@ CRONTAB_COMMAND_SUFFIX = '2>&1'
 CRONJOBS = [
     ('*/3 * * * *', 'eps_management.cronjobs.import_new_eps', '>> /home/logs/logs_eps_qradar.log'),
     ('*/10 * * * *', 'eps_management.cronjobs.import_new_eps_mcafee', '>> /home/logs/logs_eps_mcafee.log'),
+    ('*/10 * * * *', 'sanitycheckmcafee.cronjobs.import_new_sanity_trellix', '>> /home/logs/sanitytrallex.log'),
 ]

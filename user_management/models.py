@@ -68,6 +68,7 @@ class Company(BaseModel):
     is_search = models.BooleanField(default=True)
 
     domain_id_qradar = models.PositiveSmallIntegerField(null=True, blank=True)
+    abbreviation = models.CharField(max_length=20, null=True, blank=True)
 
 
     type_company = models.ForeignKey(

@@ -12,6 +12,8 @@ admin.site.register(Module, ModuleAdmin)
 
 
 class LogSourceAdmin(admin.ModelAdmin):
-    list_display = ['id_datasource', 'name_log_source', 'enabled', 'company', 'number_log_source']
+    list_display = ['id_datasource', 'name_log_source', 'enabled', 'company', 'number_log_source', 'ip', 'seguir_escalando', 'estado_datasource']
+    list_filter = ['company', 'seguir_escalando']
+    list_editable = ['seguir_escalando', 'estado_datasource']
 
 admin.site.register(LogSource, LogSourceAdmin)

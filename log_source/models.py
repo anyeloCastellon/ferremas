@@ -32,6 +32,10 @@ class LogSource(BaseModel):
 
     number_log_source = models.BigIntegerField(blank=True, null=True)
 
+    ip = models.CharField(max_length=15, blank=True, null=True)
+    seguir_escalando = models.BooleanField(default = True)
+    estado_datasource = models.BooleanField(default = True)
+    zona_horaria = models.CharField(max_length=50, choices=[('UTC', 'UTC'), ('GTM-3', 'GTM-3'), ('GTM-4', 'GTM-4')], null=True, blank=True, default="GTM-3")
 
     company = models.ForeignKey(
         "user_management.Company",
