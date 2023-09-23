@@ -73,6 +73,18 @@ def import_new_sanity_trellix():
 
 
             if time_difference > 2:
+
+                registros_previos = RegistroHistorico.objects.filter(
+                    name_log_source=log_source,
+                    company=company,
+                    estado=False
+                )
+
+                for registro in registros_previos:
+                    registro.estado = True
+                    registro.save()
+
+
                 registro_historico = RegistroHistorico.objects.get_or_create(
                     timestamp           = last_time,
                     estado              = False,
@@ -94,9 +106,6 @@ def import_new_sanity_trellix():
                     company=company,
                     estado=False
                 )
-
-                if registros_previos:
-                    print(registros_previos)
 
                 for registro in registros_previos:
                     registro.estado = True
