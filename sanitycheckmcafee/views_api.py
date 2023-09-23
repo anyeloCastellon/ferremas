@@ -1,7 +1,8 @@
 from rest_framework import generics
 from .models import RegistroHistorico
 from .serializers import RegistroHistoricoSerializer
-
+from django.http import JsonResponse
+from .cronjobs import import_new_sanity_trellix
 from datetime import datetime, timedelta
 
 class RegistroHistoricoListView(generics.ListAPIView):
@@ -17,3 +18,9 @@ class RegistroHistoricoListView(generics.ListAPIView):
             estado=False, 
             timestamp__gte=fecha_limite
         )
+
+
+
+def ejecutar_cronjob(request):
+    import_new_sanity_trellix()
+    return JsonResponse({'status': 'Cronjob ejecutado'})
