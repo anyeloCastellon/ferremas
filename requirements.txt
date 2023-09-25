@@ -12,3 +12,4 @@ django-simple-history==3.1.1
 prettytable
 python-dateutil==2.4.2
 esmcheckds2==1.0.3
+pandas=2.1.1
