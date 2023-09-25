@@ -24,7 +24,7 @@ logging.basicConfig(filename=str(log_file_path), level=logging.INFO, format='%(a
 
 def import_new_sanity_trellix():
     # Definir el comando y los argumentos en una lista
-    command = ["esmcheckds2/console.py", "-a", "--disabled", "-f", "csv"]
+    command = ["code/sanitycheckmcafee/esmcheckds2/console.py", "-a", "--disabled", "-f", "csv"]
 
     # Ejecutar el comando y redirigir la salida a un archivo
 
