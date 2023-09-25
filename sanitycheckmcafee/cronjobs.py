@@ -12,6 +12,15 @@ import pandas as pd
 import pytz
 from datetime import datetime, timedelta
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+import logging
+
+log_file_path = BASE_DIR / 'import_new_sanity_trellix.log'
+
+logging.basicConfig(filename=str(log_file_path), level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+
 def import_new_sanity_trellix():
     # Definir el comando y los argumentos en una lista
     command = ["esmcheckds2", "-a", "--disabled", "-f", "csv"]
@@ -22,6 +31,7 @@ def import_new_sanity_trellix():
         with open("./sanity.csv", "w") as f:
             subprocess.run(command, stdout=f)
     except Exception as e:
+        logging.info(e)
         print(e)
     
     df = pd.read_csv('./sanity.csv')
