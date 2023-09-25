@@ -32,7 +32,7 @@ RUN mkdir /etc/nginx/cert
 
 WORKDIR /code
 COPY requirements.txt /code/
-RUN pip install --no-deps -r requirements.txt
+RUN pip install -r requirements.txt
 COPY . /code/
 
 
