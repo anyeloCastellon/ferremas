@@ -17,9 +17,13 @@ def import_new_sanity_trellix():
     command = ["esmcheckds2", "-a", "--disabled", "-f", "csv"]
 
     # Ejecutar el comando y redirigir la salida a un archivo
-    with open("./sanity.csv", "w") as f:
-        subprocess.run(command, stdout=f)
 
+    try:
+        with open("./sanity.csv", "w") as f:
+            subprocess.run(command, stdout=f)
+    except Exception as e:
+        print(e)
+    
     df = pd.read_csv('./sanity.csv')
 
     # Define la zona horaria para Santiago de Chile
