@@ -31,6 +31,8 @@ RUN mkdir /etc/nginx
 RUN mkdir /etc/nginx/cert
 
 WORKDIR /code
+RUN mkdir logs
+RUN touch logs/gunicorn.error.log
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 COPY . /code/

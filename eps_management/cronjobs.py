@@ -4,7 +4,7 @@ import pprint
 from user_management.models import Company
 from eps_management.models import EpsTotal, EpsLogSource, Notification, EpsERCAllMcafee, EPS_DS_Collection_Rate, EPS_DS_Parsing_Rate
 from log_source.models import LogSource
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 
 
 table_hexadecimal = [
@@ -113,79 +113,79 @@ def import_new_eps():
 
 
 
-def import_new_eps_mcafee():
-    url_base = "http://172.24.80.68:8000/EPS/"
-    html = requests.get(url_base).text
-    soup = BeautifulSoup(html, 'lxml')
-    jobs = soup.find_all('a')
-    import json
+# def import_new_eps_mcafee():
+#     url_base = "http://172.24.80.68:8000/EPS/"
+#     html = requests.get(url_base).text
+#     soup = BeautifulSoup(html, 'lxml')
+#     jobs = soup.find_all('a')
+#     import json
     
-    for i in jobs:
-        if "../" in i.text:
-            continue
+#     for i in jobs:
+#         if "../" in i.text:
+#             continue
         
-        url_endpoint = url_base + str(i.text)
-        data_enpoint = requests.get(url_endpoint).text
-        try:
-            data_enpoint = data_enpoint.replace('\n', '')
-            dic_end = json.loads(data_enpoint)
-        except Exception as e:
-            print(url_endpoint)
+#         url_endpoint = url_base + str(i.text)
+#         data_enpoint = requests.get(url_endpoint).text
+#         try:
+#             data_enpoint = data_enpoint.replace('\n', '')
+#             dic_end = json.loads(data_enpoint)
+#         except Exception as e:
+#             print(url_endpoint)
 
-        cliente = str(i.text).split("_")[0]
+#         cliente = str(i.text).split("_")[0]
 
-        if(len((Company.objects.filter(name = cliente))) == 0):
-            continue
+#         if(len((Company.objects.filter(name = cliente))) == 0):
+#             continue
 
-        company = Company.objects.get(name = cliente)
+#         company = Company.objects.get(name = cliente)
         
-        epsERCAllMcafee = EpsERCAllMcafee.objects.get_or_create(
-            company                   =   company,
-            erc_collection_rate       =   dic_end['erc_collection_rate'],
-            erc_parsing_rate          =   dic_end['erc_parsing_rate'],
-            created_date              =   dic_end['time'],
-            name_file                 =   str(i.text)
-        )[0]
+#         epsERCAllMcafee = EpsERCAllMcafee.objects.get_or_create(
+#             company                   =   company,
+#             erc_collection_rate       =   dic_end['erc_collection_rate'],
+#             erc_parsing_rate          =   dic_end['erc_parsing_rate'],
+#             created_date              =   dic_end['time'],
+#             name_file                 =   str(i.text)
+#         )[0]
 
-        epsERCAllMcafee.save()
+#         epsERCAllMcafee.save()
 
-        # pprint.pprint(dic_end)
+#         # pprint.pprint(dic_end)
 
-        for j in dic_end['ds_collection_rate'].keys():
-            log_source = LogSource.objects.get(
-                number_log_source   = j,
-                company             = company
-            )
-
-
-            eps_ds_collection_rate = EPS_DS_Collection_Rate.objects.get_or_create(
-                company                 =   company,
-                ds_collection_rate      =   dic_end['ds_collection_rate'][j],
-                created_date            =   dic_end['time'],
-                epsercallmcafee         =   epsERCAllMcafee,
-                log_source              =   log_source,
-                name_file               =   str(i.text)
-
-            )[0]
-
-            eps_ds_collection_rate.save()
+#         for j in dic_end['ds_collection_rate'].keys():
+#             log_source = LogSource.objects.get(
+#                 number_log_source   = j,
+#                 company             = company
+#             )
 
 
+#             eps_ds_collection_rate = EPS_DS_Collection_Rate.objects.get_or_create(
+#                 company                 =   company,
+#                 ds_collection_rate      =   dic_end['ds_collection_rate'][j],
+#                 created_date            =   dic_end['time'],
+#                 epsercallmcafee         =   epsERCAllMcafee,
+#                 log_source              =   log_source,
+#                 name_file               =   str(i.text)
 
-        for k in dic_end['ds_parsing_rate'].keys():
-            log_source = LogSource.objects.get(
-                number_log_source   = k,
-                company             = company
-            )
+#             )[0]
+
+#             eps_ds_collection_rate.save()
 
 
-            eps_ds_parsing_rate = EPS_DS_Parsing_Rate.objects.get_or_create(
-                company                 =   company,
-                ds_parsing_rate         =   dic_end['ds_parsing_rate'][k],
-                created_date            =   dic_end['time'],
-                epsercallmcafee         =   epsERCAllMcafee,
-                log_source              =   log_source,
-                name_file               =   str(i.text)
-            )[0]
 
-            eps_ds_parsing_rate.save()
+#         for k in dic_end['ds_parsing_rate'].keys():
+#             log_source = LogSource.objects.get(
+#                 number_log_source   = k,
+#                 company             = company
+#             )
+
+
+#             eps_ds_parsing_rate = EPS_DS_Parsing_Rate.objects.get_or_create(
+#                 company                 =   company,
+#                 ds_parsing_rate         =   dic_end['ds_parsing_rate'][k],
+#                 created_date            =   dic_end['time'],
+#                 epsercallmcafee         =   epsERCAllMcafee,
+#                 log_source              =   log_source,
+#                 name_file               =   str(i.text)
+#             )[0]
+
+#             eps_ds_parsing_rate.save()
