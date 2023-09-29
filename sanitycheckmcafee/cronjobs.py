@@ -11,12 +11,12 @@ import subprocess
 import pandas as pd
 import pytz
 from datetime import datetime, timedelta
-import esmcheckds2
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 import logging
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 log_file_path = BASE_DIR / 'import_new_sanity_trellix.log'
 
 logging.basicConfig(filename=str(log_file_path), level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -25,18 +25,19 @@ logging.basicConfig(filename=str(log_file_path), level=logging.INFO, format='%(a
 def import_new_sanity_trellix():
     # Definir el comando y los argumentos en una lista
     # command = ["esmcheckds2", "-a", "--disabled", "-f", "csv"]
-    command = ["sanitycheckmcafee/esmcheckds2/console.py", "-a", "--disabled", "-f", "csv"]
+    # command = ["sanitycheckmcafee/esmcheckds2/console.py", "-a", "--disabled", "-f", "csv"]
 
-    # Ejecutar el comando y redirigir la salida a un archivo
+    # # Ejecutar el comando y redirigir la salida a un archivo
 
-    try:
-        with open("./sanity.csv", "w") as f:
-            print(subprocess.run("pwd"))
-            subprocess.run(command, stdout=f)
-    except Exception as e:
-        logging.info(e)
-        print(e)
+    # try:
+    #     with open("./sanity.csv", "w") as f:
+    #         print(subprocess.run(command, stdout=f))
+    #         subprocess.run(command, stdout=f)
+    # except Exception as e:
+    #     logging.info(e)
+    #     print("error: ", str(e))
     
+    # print("llega2")
     df = pd.read_csv('./sanity.csv')
 
     # Define la zona horaria para Santiago de Chile
