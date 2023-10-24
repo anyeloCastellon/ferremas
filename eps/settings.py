@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'log_source',
     'query_management',
     'sanitycheckmcafee',
+    'incident_handler_management',
+    'case_of_use_management',
 
     # 3rd party apps
     'rest_framework',
