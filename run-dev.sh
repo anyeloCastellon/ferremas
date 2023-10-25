@@ -7,7 +7,7 @@ export ATN_DB_PASSWD='postgres'
 export ATN_DB_HOST='172.21.21.12'
 export ATN_DB_PORT='5432'
 
-sudo docker-compose -f docker-compose.qa.yml up --build -d db_eps
+sudo docker-compose -f docker-compose.qa.yml up --build -d db_eps pgadmin
 python3 manage.py makemigrations
 python3 manage.py migrate
 

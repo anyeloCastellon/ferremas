@@ -77,7 +77,7 @@ TYPE_COMPANY = [
 
     ]
 
-SIEM_LIST = ['McAfee', 'Qradar']
+SIEM_LIST = ['McAfee', 'QRadar']
 
 
 
