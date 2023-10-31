@@ -49,7 +49,7 @@ class CaseOfUseDataDynamicCompanyView(APIView):
         with connection.cursor() as cursor:
             cursor.execute(f"""
                 SELECT coumcu.id_case_of_use as "ID Caso de Uso", 
-                       coumcu.name_case_of_use as "Nombre Caso de Uso", 
+                       coumcu.name_case_of_use as "Nombre Caso de Uso"
                 FROM case_of_use_management_caseuse as coumcu
                 LEFT JOIN (
                     SELECT caseuse_id
