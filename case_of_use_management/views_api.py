@@ -50,7 +50,6 @@ class CaseOfUseDataDynamicCompanyView(APIView):
             cursor.execute(f"""
                 SELECT coumcu.id_case_of_use as "ID Caso de Uso", 
                        coumcu.name_case_of_use as "Nombre Caso de Uso", 
-                       coumcu.is_created as "Creado"
                 FROM case_of_use_management_caseuse as coumcu
                 LEFT JOIN (
                     SELECT caseuse_id
