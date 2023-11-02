@@ -74,3 +74,4 @@ networks:
 volumes:
   .:
   static:
+  pgadmin-data:
