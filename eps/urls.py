@@ -24,4 +24,5 @@ urlpatterns = [
     path('api/v1/eps/', include('log_source.urls_api')),
     path('api/v1/eps/', include('sanitycheckmcafee.urls_api')),
     path('api/v1/eps/', include('case_of_use_management.urls_api')),
+    path('api/v1/eps/', include('incident_handler_management.urls_api')),
 ]

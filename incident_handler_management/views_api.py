@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from .models import *
-from .serializers import *
+
 from django.utils import timezone
 from datetime import datetime, date, timedelta
 from user_management.models import Company
@@ -15,7 +15,7 @@ from user_management.models import Company
 from django.db import connection
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import CaseOfUseDataSerializer
+
 
 
 class MyCustomIncidentView(APIView):
