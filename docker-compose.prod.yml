@@ -19,7 +19,7 @@ services:
     container_name: pgadmin4_eps_prod
     restart: always
     ports:
-      - "5050:80"
+      - "80:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: anyelo.castellon@cci-entel.cl
       PGADMIN_DEFAULT_PASSWORD: anyelo.castellon
