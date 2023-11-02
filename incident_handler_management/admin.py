@@ -14,6 +14,7 @@ admin.site.register(TypeIncident, TypeIncidentAdmin)
 
 
 class IncidentAdmin(admin.ModelAdmin):
-    list_display = ['id_incident', 'name_incident', 'type_incident', 'enabled']
+    list_display = ['id_incident', 'name_incident', 'type_incident', 'number_of_use_cases', 'enabled']
+    list_editable = ['number_of_use_cases']
 
 admin.site.register(Incident, IncidentAdmin)

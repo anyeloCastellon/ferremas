@@ -30,6 +30,8 @@ class Incident(BaseModel):
         on_delete=models.CASCADE,
     )
 
+    number_of_use_cases = models.PositiveIntegerField(default=0, blank=False, null=False)
+
     def __str__(self):
         return self.name_incident
 
