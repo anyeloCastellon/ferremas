@@ -18,29 +18,56 @@ from rest_framework.response import Response
 
 
 
+# class MyCustomIncidentView(APIView):
+
+#     def get(self, request, company_id):
+#         with connection.cursor() as cursor:
+#             cursor.execute(f"""
+#                     SELECT
+#                         ihmi.name_incident as "Nombre Incidente",
+#                         ihmi.number_of_use_cases as "# Incidentes cubiertos",
+#                         COUNT(DISTINCT assigned_cases.id_case_of_use) as "# Incidentes asigandos",
+#                         (COUNT(DISTINCT assigned_cases.id_case_of_use) * 100.0 / ihmi.number_of_use_cases) as "% Asigando"
+#                     FROM incident_handler_management_incident as ihmi
+#                     LEFT JOIN (
+#                         SELECT coumcui.incident_id, coumcu.id_case_of_use
+#                         FROM case_of_use_management_caseuse_incident as coumcui
+#                         INNER JOIN case_of_use_management_caseuse as coumcu ON coumcui.caseuse_id = coumcu.id_case_of_use
+#                         INNER JOIN case_of_use_management_caseuse_company as coumcuc ON coumcu.id_case_of_use = coumcuc.caseuse_id
+#                         WHERE coumcuc.company_id = {company_id}
+#                     ) as assigned_cases ON ihmi.id_incident = assigned_cases.incident_id
+#                     WHERE ihmi.number_of_use_cases IS NOT NULL
+#                     GROUP BY ihmi.name_incident, ihmi.number_of_use_cases
+#                     ORDER BY "% Asigando" DESC;
+#             """)
+#             columns = [col[0] for col in cursor.description]
+#             data = [dict(zip(columns, row)) for row in cursor.fetchall()]
+#         return Response(data)
+
 class MyCustomIncidentView(APIView):
 
     def get(self, request, company_id):
         with connection.cursor() as cursor:
             cursor.execute(f"""
-                    SELECT
-                        ihmi.name_incident as "Nombre Incidente",
-                        ihmi.number_of_use_cases as "# Incidentes cubiertos",
-                        COUNT(DISTINCT assigned_cases.id_case_of_use) as "# Incidentes asigandos",
-                        (COUNT(DISTINCT assigned_cases.id_case_of_use) * 100.0 / ihmi.number_of_use_cases) as "% Asigando"
-                    FROM incident_handler_management_incident as ihmi
-                    LEFT JOIN (
-                        SELECT coumcui.incident_id, coumcu.id_case_of_use
-                        FROM case_of_use_management_caseuse_incident as coumcui
-                        INNER JOIN case_of_use_management_caseuse as coumcu ON coumcui.caseuse_id = coumcu.id_case_of_use
-                        INNER JOIN case_of_use_management_caseuse_company as coumcuc ON coumcu.id_case_of_use = coumcuc.caseuse_id
-                        WHERE coumcuc.company_id = {company_id}
-                    ) as assigned_cases ON ihmi.id_incident = assigned_cases.incident_id
-                    WHERE ihmi.number_of_use_cases IS NOT NULL
-                    GROUP BY ihmi.name_incident, ihmi.number_of_use_cases
-                    ORDER BY "% Asigando" DESC;
+                WITH assigned_cases AS (
+                    SELECT coumcui.incident_id, coumcu.id_case_of_use
+                    FROM case_of_use_management_caseuse_incident as coumcui
+                    INNER JOIN case_of_use_management_caseuse as coumcu ON coumcui.caseuse_id = coumcu.id_case_of_use
+                    INNER JOIN case_of_use_management_caseuse_company as coumcuc ON coumcu.id_case_of_use = coumcuc.caseuse_id
+                    WHERE coumcuc.company_id = {company_id}
+                )
+
+                SELECT
+                    ihmi.name_incident as "Nombre Incidente",
+                    ihmi.number_of_use_cases as "# Incidentes cubiertos",
+                    COUNT(DISTINCT assigned_cases.id_case_of_use) as "# Incidentes asignados",
+                    (COUNT(DISTINCT assigned_cases.id_case_of_use) * 100.0 / ihmi.number_of_use_cases) as "% Asignado"
+                FROM incident_handler_management_incident as ihmi
+                LEFT JOIN assigned_cases ON ihmi.id_incident = assigned_cases.incident_id
+                WHERE ihmi.number_of_use_cases IS NOT NULL
+                GROUP BY ihmi.name_incident, ihmi.number_of_use_cases
+                ORDER BY "% Asignado" DESC;
             """)
             columns = [col[0] for col in cursor.description]
             data = [dict(zip(columns, row)) for row in cursor.fetchall()]
         return Response(data)
-
