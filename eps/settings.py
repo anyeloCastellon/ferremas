@@ -42,12 +42,7 @@ INSTALLED_APPS = [
     
     # own
     'user_management',
-    'eps_management',
-    'log_source',
-    'query_management',
-    'sanitycheckmcafee',
-    'incident_handler_management',
-    'case_of_use_management',
+    'enterprise_resource_planning_management',
 
     # 3rd party apps
     'rest_framework',
@@ -94,21 +89,25 @@ WSGI_APPLICATION = 'eps.wsgi.application'
 
 try:
 
-    PROD = os.environ['ATN_PROD']
-    API_GET_PASSWORD = '26506aee-aab1-49cf-87f9-537964033af6'
-    API_URL_BASIC = 'https://172.16.133.10/api/'
+    # if PROD:
+    #     DATABASES = {
+    #         'default': {
+    #             'ENGINE': os.environ['BASE_DB_ENGINE'],
+    #             'NAME': os.environ['BASE_DB'],
+    #             'USER': os.environ['BASE_DB_USER'],
+    #             'PASSWORD': os.environ['BASE_DB_PASSWD'],
+    #             'HOST': os.environ['BASE_DB_HOST'],
+    #             'PORT': os.environ['BASE_DB_PORT'],
+    #         }
+    #     }
 
-    if PROD:
-        DATABASES = {
-            'default': {
-                'ENGINE': os.environ['ATN_DB_ENGINE'],
-                'NAME': os.environ['ATN_DB'],
-                'USER': os.environ['ATN_DB_USER'],
-                'PASSWORD': os.environ['ATN_DB_PASSWD'],
-                'HOST': os.environ['ATN_DB_HOST'],
-                'PORT': os.environ['ATN_DB_PORT'],
-            }
+    # else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / "db.sqlite3",
         }
+    }
 
 except Exception as E:
     raise ValueError(E)
@@ -153,7 +152,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-OTP_NAME = 'CyberDefense - Cybersecurity Strategies'
+OTP_NAME = 'FERREMAS'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -171,7 +170,4 @@ REST_FRAMEWORK = {
 CRONTAB_COMMAND_SUFFIX = '2>&1'
 
 CRONJOBS = [
-    ('*/3 * * * *', 'eps_management.cronjobs.import_new_eps', '>> /home/logs/logs_eps_qradar.log'),
-    # ('*/10 * * * *', 'eps_management.cronjobs.import_new_eps_mcafee', '>> /home/logs/logs_eps_mcafee.log'),
-    ('* * * * *', 'sanitycheckmcafee.cronjobs.import_new_sanity_trellix', '>> /home/logs/sanitytrallex.log'),
 ]
