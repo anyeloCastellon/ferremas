@@ -25,6 +25,7 @@ class Producto(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nombre')
     cat = models.ForeignKey(Categoria, on_delete=models.CASCADE, verbose_name='Categoría')
     stock = models.IntegerField(default=0, verbose_name='Stock')
+    imagen = models.ImageField(upload_to='productos/', default='productos/no-image.png', verbose_name='Imagen')
 
     def __str__(self):
         return f'{self.marca} - {self.name}'
