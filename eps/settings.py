@@ -32,6 +32,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,8 +45,10 @@ INSTALLED_APPS = [
     # own
     'user_management',
     'enterprise_resource_planning_management',
+    'useful_management',
 
     # 3rd party apps
+    'bootstrap5',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
@@ -68,7 +72,10 @@ ROOT_URLCONF = 'eps.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / "homepage/templates",
+            BASE_DIR / "templates",
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,6 +87,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'eps.wsgi.application'
 
@@ -157,8 +165,6 @@ OTP_NAME = 'FERREMAS'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = '/code/static/'
 
 
 REST_FRAMEWORK = {
@@ -171,3 +177,17 @@ CRONTAB_COMMAND_SUFFIX = '2>&1'
 
 CRONJOBS = [
 ]
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
