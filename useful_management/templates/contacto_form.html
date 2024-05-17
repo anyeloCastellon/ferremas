@@ -1,0 +1,17 @@
+<!-- useful_management/templates/useful_management/contacto_form.html -->
+{% extends 'layout.html' %}
+
+{% block title %}Contacto{% endblock %}
+
+{% block content %}
+<div style="margin-top: 150px;">
+
+    <h2>Contacto</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block title %}Contacto Enviado{% endblock %}
+
+{% block content %}
+<div style="margin-top: 150px;">
+    <h2>Gracias por tu mensaje</h2>
+    <p>Tu mensaje ha sido enviado exitosamente. Nos pondremos en contacto contigo lo antes posible.</p>
+    <a href="{% url 'contacto_create' %}" class="btn btn-primary">Enviar otro mensaje</a>
+</div>
+{% endblock %}
